@@ -7,10 +7,7 @@ interface NewNoteProps {
   onNoteCreated: (content: string) => void;
 }
 
-const SpeechRecognitionAPI =
-  window.SpeechRecognition || window.webkitSpeechRecognition;
-
-const speechRecognition = new SpeechRecognitionAPI();
+let speechRecognition: SpeechRecognition | null = null
 
 export function NewNoteCard({ onNoteCreated }: NewNoteProps) {
   const [isRecording, setIsRecording] = useState(false);
@@ -52,6 +49,11 @@ export function NewNoteCard({ onNoteCreated }: NewNoteProps) {
       alert("Infelizmente seu navegador não suporta a API de gravação!");
       return;
     }
+
+    const SpeechRecognitionAPI =
+  window.SpeechRecognition || window.webkitSpeechRecognition;
+
+   speechRecognition = new SpeechRecognitionAPI();
 
     setIsRecording(true);
     setShouldShowOnboarding(false);
